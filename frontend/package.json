@@ -19,6 +19,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-switch": "^7.0.0",
+    "recharts": "^2.1.13",
     "styled-components": "^5.3.5",
     "uuidv4": "^6.2.13"
   },
