@@ -4,6 +4,7 @@ import WalletBox from '../../components/WalletBox';
 import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
 import MessageBox from '../../components/MessageBox';
+import { PieCharts } from '../../components/PieCharts';
 
 import gains from '../../repositories/gains';
 import expenses from '../../repositories/expenses'
@@ -13,6 +14,8 @@ import {
     Container,
     Content
 } from './styles';
+
+
 
 const Dashboard: React.FC = () => {
     const [mouthSelected, setMouthSelected] = useState<number>(new Date().getMonth() + 1);
@@ -153,6 +156,29 @@ const Dashboard: React.FC = () => {
 
     }, [totalExpenses, totalGains])
 
+    const relationExpansesVersusGains = useMemo(() => {
+        const total = totalGains + totalExpenses;
+
+        const percentGains = (totalGains / total) * 100
+        const percentExpenses = (totalExpenses / total) * 100
+
+        return [
+            {
+                name: "Entradas",
+                value: totalGains,
+                percent: Number(percentGains.toFixed(1)),
+                color: '#E44C4E'
+            },
+            {
+                name: "Saídas",
+                value: totalExpenses,
+                percent: Number(percentExpenses.toFixed(1)),
+                color: '#F7931B'
+            }
+        ]
+    }, [totalGains, totalExpenses])
+
+
 
 
     const { title, description, footerText, icon } = message
@@ -219,8 +245,12 @@ const Dashboard: React.FC = () => {
                     footerText={footerText}
                     icon={icon}
                 />
+
+                <PieCharts data={relationExpansesVersusGains}/>
             </Content>
+
         </Container>
+
     );
 }
 
