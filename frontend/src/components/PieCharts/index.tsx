@@ -29,13 +29,14 @@ const PieCharts: React.FC<IPieChartProps> = ({ data }) => (
     <>
         <Container>
             <SideLeft>
+              <h2>Relação</h2>
                 <LegendContainer>
                     {
                         data.map((item) => (
 
                             <Legend key={item.name}
                                 color={item.color}>
-                                <div>{!isNaN(item.percent) && item.percent}</div>
+                                <div>{item.percent+`%`}</div>
                                 <span>{item.name}</span>
                             </Legend>
                         ))

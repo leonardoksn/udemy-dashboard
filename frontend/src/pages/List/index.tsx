@@ -5,8 +5,8 @@ import ContentHeader from '../../components/ContentHeader';
 import SelectInput from '../../components/SelectInput';
 import HistoryFinanceCard from '../../components/HistoryFinanceCard';
 
-import gains from '../../repositories/gains';
-import expenses from '../../repositories/expenses';
+// import gains from '../../repositories/gains';
+// import expenses from '../../repositories/expenses';
 
 import formatCurrency from '../../utils/formatCurrency';
 
@@ -38,30 +38,32 @@ const List: React.FC = () => {
 
     const [data, setData] = useState<IData[]>([]);
     const [mouthSelected, setMouthSelected] = useState<number>(new Date().getMonth() + 1);
-    const [yearSelected, setYearSelected] = useState<number>(new Date().getFullYear() - 2);
+    const [yearSelected, setYearSelected] = useState<number>(new Date().getFullYear());
     const [frequencyFilterSelected, setFrequencyFilterSelected] = useState(['recorrente', 'eventual'])
 
 
     const movimentType = useParams().type;
 
-    const getGains = async () => {
-        const { data } = await api.get('/gains')
-        setGains(data)
-    };
-
-    const getExpenses = async () => {
-        const { data } = await api.get('/expenses')
-        setExpenses(data)
-    };
+    const token = localStorage.getItem('@minha-carteira:logged')
 
     useEffect(() => {
         const getGains = async () => {
-            const { data } = await api.get('/gains')
+
+
+            const { data } = await api.get('/gains', {
+                headers: {
+                    'Authorization': `Basic ${token}`
+                }
+            })
             setGains(data)
         }
 
         const getExpenses = async () => {
-            const { data } = await api.get('/expenses')
+            const { data } = await api.get('/expenses', {
+                headers: {
+                    'Authorization': `Basic ${token}`
+                }
+            })
             setExpenses(data)
         };
         getGains()
@@ -82,20 +84,6 @@ const List: React.FC = () => {
                 data: expenses
             }
     }, [movimentType, gains, expenses])
-    if (movimentType === 'entry-balance') {
-
-        useEffect(() => {
-            const timer = setInterval(getGains, 2000);
-            return () => clearInterval(timer)
-        }, [])
-    } else {
-
-        useEffect(() => {
-            const timer = setInterval(getExpenses, 2000);
-            return () => clearInterval(timer)
-        }, [])
-
-    }
 
 
     const months = useMemo(() => {
@@ -162,7 +150,7 @@ const List: React.FC = () => {
             const year = date.getFullYear();
 
             return yearSelected === year && month === mouthSelected && frequencyFilterSelected.includes(item.frequency);
-        
+
         });
 
         const response = filtredData.map(item => {

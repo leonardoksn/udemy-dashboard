@@ -7,7 +7,6 @@
     "start": "vite --host --port 3100",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "nod": "node ./dist/assets/index.479f2d7d.js",
     "deploy": "pm2 start ./dist/server.js --name frontend-dashboard"
   },
   "dependencies": {

@@ -14,12 +14,11 @@ export const Container = styled.div`
 
 export const Profile = styled.div `
 
-color : ${(props) => props.theme.colors.white};
-
+  color : ${(props) => props.theme.colors.white};
 
 `;
 
-export const Welcome = styled.div``;
+export const Welcome = styled.h3``;
 
 export const UserName = styled.span``;
 

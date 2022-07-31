@@ -3,10 +3,9 @@ import React, { Children } from 'react';
 import happyImg from '../../assets/happy.svg'
 import sadImg from '../../assets/sad.svg'
 import sweetImg from '../../assets/grinning.svg'
-
+import thinking from '../../assets/thinking.png'
 
 import { Container } from './style';
-
 interface IMessageBoxProps {
     title: string;
     description: string;
@@ -23,10 +22,11 @@ const MessageBox: React.FC<IMessageBoxProps> = ({ title, description, footerText
                 return sadImg;
             case 'sweet':
                 return sweetImg;
+            case 'thinking':
+                return thinking;
             default:
-                return undefined;
-        }
-    }
+                return undefined; 
+            }}
 
     return (
         <Container>
@@ -43,7 +43,6 @@ const MessageBox: React.FC<IMessageBoxProps> = ({ title, description, footerText
                 <span>{footerText}</span>
             </footer>
         </Container>
-
     );
 }
 

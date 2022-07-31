@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
-import { sql } from './sql'
+import sql from './sql'
 
 async function gains(req: Request, res: Response) {
   try {
-    const gains = await sql()
+    const gains =  sql
 
     return res.status(200).send(gains)
   } catch (error) {

@@ -47,6 +47,7 @@ dist-ssr
 out-*.log
 out.log
 
+yarn.lock
 
 
 
